@@ -1,5 +1,7 @@
 package com.entor.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
@@ -15,5 +17,6 @@ import com.entor.entity.Permission;
  */
 @Mapper
 public interface PermissionMapper extends BaseMapper<Permission> {
-	Permission getPermissionByRid(Integer rid);
+	List<Permission> getPermissionByRid(Integer rid);
+	
 }

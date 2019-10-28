@@ -1,6 +1,9 @@
 package com.entor.service;
 
 import com.entor.entity.Permission;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -12,5 +15,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2019-10-16
  */
 public interface IPermissionService extends IService<Permission> {
-	
+	List<Permission> getPermissionByRid(Integer rid);
 }

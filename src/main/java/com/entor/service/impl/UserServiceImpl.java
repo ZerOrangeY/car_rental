@@ -1,13 +1,17 @@
 package com.entor.service.impl;
 
-import com.entor.entity.User;
-import com.entor.mapper.UserMapper;
-import com.entor.service.IUserService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.entor.entity.User;
+import com.entor.mapper.UserMapper;
+import com.entor.service.IUserService;
 
 /**
  * <p>
@@ -23,16 +27,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 	private UserMapper userMapper;
 	@Override
 	public User login(String username, String password) {
-		User user = userMapper.selectOne(new User(null,username,password));
-		if (user!=null) {
-			return user;
+		Wrapper<User> wrapper = new EntityWrapper<>();
+		wrapper.eq(User.USERNAME, username);
+		wrapper.and();
+		wrapper.eq(User.PASSWORD, password);
+		List<User> list =userMapper.selectList(wrapper);
+		if (list!=null&&!list.isEmpty()) {
+			return list.get(0);
 		}
 		return null;
 	}
 
 	@Override
 	public User getUserByUsername(String username) {
-		// TODO Auto-generated method stub
+		Wrapper<User> wrapper = new EntityWrapper<>();
+		wrapper.eq(User.USERNAME, username);
+		List<User> list =userMapper.selectList(wrapper);
+		if (list!=null&&!list.isEmpty()) {
+			return list.get(0);
+		}
 		return null;
 	}
 	
